@@ -1,6 +1,6 @@
 {
   "name": "otp-process",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "This package is created for generating otp login system on the server without using database and to verify the otp also it's just a layer of abstraction on the piece of code.",
   "main": "server.js",
   "scripts": {
