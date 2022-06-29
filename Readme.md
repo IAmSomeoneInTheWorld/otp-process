@@ -1,4 +1,4 @@
-# Otp
+# Otp-process
 
 _This piece of code will used to generate "**OTP**" on the server and as well as verify the otp on the server side without storing otp in database_
 
@@ -6,10 +6,10 @@ _This piece of code will used to generate "**OTP**" on the server and as well as
 
 ## How to use
 
-import `otp`
+import `otp-process`
 
 ```javascript
-const otp = require("otp");
+const otp = require("otp-process");
 ```
 
 Basic, How to **`create OTP`**
