@@ -2,8 +2,6 @@
 
 _This piece of code will used to generate "**OTP**" on the server and as well as verify the otp on the server side without storing otp in database_
 
-
-
 ## How to use
 
 import `otp-process`
@@ -17,11 +15,10 @@ Basic, How to **`create OTP`**
 ```javascript
 const Otp = otp.createOtp();
 
-if(!Otp.error){
-    const {error , ...data} = Otp;
-    console.log(data);
-  }
-});
+if (!Otp.error) {
+  const { error, ...data } = Otp;
+  console.log(data);
+}
 ```
 
 Basic, How to **`VerifyOtp`**
@@ -100,8 +97,8 @@ console.log(Otp);
 */
 
 // Now verifying otp
-if(!Otp.error){
-  const {hash , data , otp} = Otp;
-    const isVerify = otp.verify(hash , data , otp , process.env.OTP_SECRET);
+if (!Otp.error) {
+  const { hash, data, otp:userOtp } = Otp;
+  const isVerify = otp.verify(hash, data, userOtp, process.env.OTP_SECRET);
 }
 ```
