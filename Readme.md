@@ -2,7 +2,7 @@
 
 _This piece of code will used to generate "**OTP**" on the server and as well as verify the otp on the server side without storing otp in database_
 
-## Example with real world project
+## Example with project
 
 ```javascript
 // importing module
