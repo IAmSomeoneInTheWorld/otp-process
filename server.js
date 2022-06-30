@@ -51,7 +51,7 @@ class OtpSystem {
         }
 
         // validation 2
-        if(!Number.isInteger(otp)){
+        if(!Number.isInteger(Number(otp))){
             return { error: "otp should be a integer", flag: false };
         }
 

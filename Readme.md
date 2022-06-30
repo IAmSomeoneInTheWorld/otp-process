@@ -2,6 +2,89 @@
 
 _This piece of code will used to generate "**OTP**" on the server and as well as verify the otp on the server side without storing otp in database_
 
+## Example with real world project
+
+```javascript
+// importing module
+const Otp = require("otp-process");
+
+class UserController {
+    // for sending signup otp
+    async sendOtp(req , res){
+        
+        // destructuring the body
+        const {email , mobile} = req.body;
+
+        // validation
+        if(!email && !mobile){
+            return res.json({msg:"Email or Mobile required" , flag : false});
+        };
+
+        // creating otp
+        const otp = Otp.createOtp(4 , {data : email?email:mobile} , 1 , process.env.OTP_SECRET);
+
+        // cheking where to send otp
+
+        // if user requested with email
+        if(email){
+            // validating otp
+            if(otp.error){
+                return res.json({msg:otp.error , flag : false});
+            };
+
+            // sent otp to email but here i am consoling the otp
+            console.log(otp.otp);
+            
+            return res.json({hash : otp.hash , data : otp.data , flag:true});
+
+        }
+        // if user requested with mobile
+        else if(mobile){
+            // validating otp
+            if(otp.error){
+                return res.json({msg:otp.error , flag : false});
+            };
+
+            // sent otp to mobile but here i am consoling the otp
+            console.log(otp.otp);
+            
+            return res.json({hash : otp.hash , data : otp.data , flag:true});
+        }
+    };
+
+    // verify otp and create user account
+    async verifyOtp(req , res){
+        // destructuring data
+        const {hash , data , otp} = req.body;
+
+        // validating
+        if(!hash || !data || !otp){
+            return res.json({msg:"All fields are required" , flag : false});
+        };
+
+        // verifying otp
+        const isVerify = Otp.verify(hash , data , otp , process.env.OTP_SECRET);
+
+        if(isVerify.error){
+            return res.json({msg:isVerify.error , flag:false});
+        }
+
+        // now user verified you can also verify one more time by the code given below
+        
+        if(isVerify.flag){
+            // now fully confirmed that user is verified
+            // Now you can do your signup process here
+        }
+
+    }
+}
+
+module.exports = new UserController();
+```
+
+In given example you can easily understand, how this module works. In `verifyOtp` controller, you will get **Otp**, **Hash** and **Data** from the ```request.body```. User will receive email or message via ```sendOtp``` api, In **sendOtp** ```hash``` and ```data``` will travel via response object but **Otp** will travel via message or email and then **Hash, Data** and **Otp** will travel via ```request.body```.
+***
+
 ## How to use
 
 import `otp-process`
@@ -98,7 +181,7 @@ console.log(Otp);
 
 // Now verifying otp
 if (!Otp.error) {
-  const { hash, data, otp:userOtp } = Otp;
+  const { hash, data, otp: userOtp } = Otp;
   const isVerify = otp.verify(hash, data, userOtp, process.env.OTP_SECRET);
 }
 ```
