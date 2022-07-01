@@ -28,7 +28,7 @@
     "otp-process"
   ],
   "author": "Madhav",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/IAmSomeoneInTheWorld/otp/issues"
   },
